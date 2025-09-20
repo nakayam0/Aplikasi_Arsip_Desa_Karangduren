@@ -1,66 +1,148 @@
-<<<<<<< HEAD
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📂 Aplikasi Arsip Surat Desa Karangduren
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi berbasis web untuk **mengarsipkan surat-surat resmi** Desa Karangduren, Kecamatan Pakisaji.  
+Setiap surat resmi yang telah diterbitkan dapat dipindai (scan) dalam format **PDF**, lalu diunggah ke sistem agar dapat **disimpan, dicari, dan diunduh kembali** dengan mudah kapan saja.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🎯 Tujuan
+Aplikasi ini dibuat untuk:
+- Mempermudah **penyimpanan dan pengelolaan** surat resmi desa.
+- Memberikan kemudahan bagi perangkat desa dalam **pencarian surat** berdasarkan judul atau kata kunci tertentu.
+- Menyediakan akses **pengunduhan surat PDF** secara cepat dan terstruktur.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ✨ Fitur Utama
+- **Upload Surat (PDF)**  
+  Petugas dapat mengunggah surat hasil pemindaian dalam format PDF.
+- **Manajemen Arsip Surat**  
+  Simpan informasi seperti **judul surat**, **nomor surat**, **tanggal terbit**, dan **keterangan**.
+- **Pencarian Surat**  
+  Cari arsip surat berdasarkan **judul** atau kata kunci secara cepat.
+- **Pratinjau & Unduh Surat**  
+  Lihat daftar surat yang tersimpan dan unduh file PDF sesuai kebutuhan.
+- **Pengelolaan Data Admin**  
+  Admin dapat menambah, mengedit, dan menghapus arsip surat sesuai hak akses.
+- **Antarmuka Sederhana & Responsif**  
+  Tampilan user-friendly dan dapat diakses dari komputer maupun perangkat mobile.
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 🖥️ CARA MENJALANKAN
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Ikuti langkah-langkah berikut untuk menyiapkan dan menjalankan aplikasi **Aplikasi Arsip Surat Desa Karangduren** di lingkungan lokal:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+#### 1️⃣ Kebutuhan Sistem
+Pastikan sudah terpasang:
+- **PHP 8.2+**
+- **MySQL / MariaDB** *(atau sesuaikan `.env` bila menggunakan SQLite)*
+- **Composer**
+- **Laravel** 
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+#### 2️⃣ Persiapan Database (MySQL)
+Jika database `aplikasiarsip` belum ada, buat terlebih dahulu:
 
-### Premium Partners
+- **Menggunakan file SQL**  
+  Jalankan perintah berikut di terminal MySQL:
+  ```sql
+  SOURCE database/init/aplikasiarsip.sql;
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- Atau buat manual
+Jalankan perintah berikut:
 
-## Contributing
+  ```sql
+  CREATE DATABASE IF NOT EXISTS si_arsip
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3️⃣ Konfigurasi File .env
+- Salin file contoh:
+  ```bash
+  copy .env.example .env
 
-## Code of Conduct
+- Sesuaikan variabel penting (contoh default Laragon/XAMPP):
+  ```ini
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=aplikasiarsip
+    DB_USERNAME=root
+    DB_PASSWORD=
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4️⃣ Migrasi & Seeder
+- Jalankan migrasi dan seeder untuk membuat tabel dan menambahkan kategori default:
 
-## Security Vulnerabilities
+    ```bash
+    php artisan migrate --seed
+- Seeder akan menambahkan 4 kategori surat default:
+    Undangan
+    Pengumuman
+    Nota Dinas
+    Pemberitahuan
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5️⃣ Storage Link
+- Buat symbolic link untuk penyimpanan file:
+    ```sql
+    php artisan storage:link
 
-## License
+6️⃣ Menjalankan Aplikasi
+- Jalankan server Laravel:
+    ```sql
+    php artisan serve
+- Atau langsung melalui browser :
+  http://aplikasiarsip.test/about atau http://127.0.0.1:8000
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-=======
-# Aplikasi_Arsip_Desa_Karangduren
-Aplikasi ini digunakan untuk melakukan arsip surat 
->>>>>>> 173b37720a2d069f7182f79c24aa588096d97b31
+---
+
+## 🖼 Dokumentasi Visual Aplikasi
+
+- Arsip Surat
+<img width="1366" height="727" alt="image" src="https://github.com/user-attachments/assets/83366a03-cefd-4831-bcd5-97278fb515e8" />
+
+- Arsip Surat >> Cari
+<img width="1360" height="405" alt="image" src="https://github.com/user-attachments/assets/f8ca1292-0119-4d2a-818f-2861d48a310d" />
+
+- Arsip Surat >> Arsipkan Surat
+<img width="1363" height="589" alt="image" src="https://github.com/user-attachments/assets/1e365072-ae7b-4c75-a4a5-32ae08f6f0ff" />
+
+- Arsip Surat >> Lihat
+<img width="1366" height="728" alt="image" src="https://github.com/user-attachments/assets/208ad03f-9033-42dd-85d6-9d29cfe762bd" />
+
+- Arsip Surat >> Edit/Ganti File
+<img width="1362" height="606" alt="image" src="https://github.com/user-attachments/assets/b55c4be2-f6fd-472a-ac13-ac14bd5e6963" />
+
+- Arsip Surat >> Hapus
+<img width="1362" height="547" alt="image" src="https://github.com/user-attachments/assets/ee299d96-402f-405e-b528-4f00a96184b9" />
+
+- Kategori Surat
+<img width="1366" height="567" alt="image" src="https://github.com/user-attachments/assets/54cddc02-8254-4d06-b1e3-25a5c2d30ebe" />
+
+- Tambah Kategori Baru
+<img width="1366" height="511" alt="image" src="https://github.com/user-attachments/assets/c4d37c1e-fea5-4a60-8df7-f21aace78ee7" />
+
+- Kategori Surat >> Edit
+<img width="1363" height="550" alt="image" src="https://github.com/user-attachments/assets/979959b0-4970-4a8d-8763-1fc05f847ff4" />
+
+- Kategori Surat >> Hapus
+<img width="1362" height="558" alt="image" src="https://github.com/user-attachments/assets/016e5c67-4c1b-4ca6-8d25-9ad1e99048e5" />
+
+- Kategori Surat >> Cari
+<img width="1363" height="367" alt="image" src="https://github.com/user-attachments/assets/d8c6b415-7576-49cc-9eca-4635a3f836c0" />
+
+- About 
+<img width="1363" height="416" alt="image" src="https://github.com/user-attachments/assets/19f2c025-6133-4a05-a61c-ca30f92f89b7" />
+
+---
+
+# Semoga Membantu ✌
+
+
+
+
+
+
+
+
+
